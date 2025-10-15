@@ -1,5 +1,5 @@
 # IDE settings
-.idea/
+.idea/*.xml
 
 # Python artifacts
 __pycache__/
@@ -9,5 +9,5 @@ __pycache__/
 .venv/
 env/
 
-# XML files
-*.xml
+# Examples pychache
+examples/__pycache__/*.pyc

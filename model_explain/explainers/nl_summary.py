@@ -11,7 +11,7 @@ def generate_summary(instance, shap_values, feature_names, prediction, class_nam
     """
     Generate a natural language summary explaining the model's prediction.
     :param instance: An array-like structure representing the input instance.
-    :type instance: np.ndarray
+    :type instance: np.ndarray or pd.Series
     :param shap_values: An array-like structure representing the SHAP values for the instance.
     :type shap_values: np.ndarray
     :param feature_names: A list of feature names corresponding to the instance.
@@ -25,7 +25,7 @@ def generate_summary(instance, shap_values, feature_names, prediction, class_nam
     """
     top_indices = np.argsort(np.abs(shap_values))[::-1][:3]
     reasons = [
-        f"{feature_names[i]} was {'high' if instance[i] > 0 else 'low'}"
+        f"{feature_names[i]} was {'high' if instance.iloc[i] > 0 else 'low'}"
         for i in top_indices
     ]
     reason_text = ", and ".join(reasons)
