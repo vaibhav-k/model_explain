@@ -1,6 +1,18 @@
+# model_explain/utils/explainability_score.py
+
 """
 This module provides a function to compute an explainability score for machine learning models.
 The score is based on the model's feature importance and complexity.
+
+Features:
+- Computes a score between 0 and 100.
+    - Higher scores indicate more explainable models.
+
+Author:
+    Vaibhav Kulshrestha
+
+Date:
+    2025-10-15
 """
 
 # Import necessary libraries

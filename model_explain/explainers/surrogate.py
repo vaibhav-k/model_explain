@@ -1,9 +1,21 @@
+# model_explain/explainers/surrogate.py
+
 """
 This module implements a surrogate model explainer using a decision tree classifier.
 The surrogate model approximates the predictions of a more complex model, providing
 a simpler and more interpretable representation of its decision-making process.
 
 Goal: Train interpretable surrogate model to mimic complex model predictions.
+
+Features:
+- Uses DecisionTreeClassifier from scikit-learn.
+- Fits the surrogate model on the predictions of the complex model.
+
+Author:
+    Vaibhav Kulshrestha
+
+Date:
+    2025-10-15
 """
 
 # Import necessary libraries

@@ -1,5 +1,11 @@
 """
 Setup script for the model_explain package.
+
+Author:
+    Vaibhav Kulshrestha
+
+Date:
+    2025-10-15
 """
 
 # Import necessary modules
@@ -7,7 +13,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="model_explain",
-    version="0.1.0",
+    version="0.2.0",
     packages=find_packages(),
     install_requires=[
         "plotly",

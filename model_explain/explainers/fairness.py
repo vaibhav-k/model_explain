@@ -1,7 +1,21 @@
+# model_explain/explainers/fairness.py
+
 """
 This module provides functions to audit the fairness of machine learning models
 using the Fairlearn library. It includes metrics such as Demographic Parity and
 Equalized Odds.
+
+Features:
+1. Demographic Parity: Measures the difference in positive outcome rates between
+   different demographic groups.
+2. Equalized Odds: Measures the difference in true positive rates and false positive
+   rates between different demographic groups.
+
+Author:
+    Vaibhav Kulshrestha
+
+Date:
+    2025-10-15
 """
 
 # Import necessary libraries

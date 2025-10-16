@@ -1,6 +1,18 @@
+# model_explain/explainers/lime_explainer.py
+
 """
 LIME Explainer for Tabular Data
 This module provides a function to create a LIME explainer for tabular data.
+
+Features:
+1. LIME Explainer: Generates local explanations for individual predictions made by
+   machine learning models.
+
+Author:
+    Vaibhav Kulshrestha
+
+Date:
+    2025-10-15
 """
 
 # Import necessary libraries

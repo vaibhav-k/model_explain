@@ -1,6 +1,18 @@
+# model_explain/explainers/counterfactual.py
+
 """
 This module provides functionality to generate counterfactual explanations
 for machine learning models using the DiCE library.
+
+Features:
+- Generate counterfactuals for a given instance.
+- Customize features to vary in the counterfactual generation process.
+
+Author:
+    Vaibhav Kulshrestha
+
+Date:
+    2025-10-15
 """
 
 # Import necessary libraries
@@ -24,7 +36,10 @@ def generate_counterfactual(model, data, instance, features_to_vary=None):
     :type features_to_vary: List[str], optional
     :return: pd.DataFrame: DataFrame containing the generated counterfactuals.
     """
-    dice_data = dice_ml.Data(dataframe=data, continuous_features=features_to_vary)
+    dice_data = dice_ml.Data(
+        dataframe=data,
+        continuous_features=features_to_vary,
+    )
     dice_model = dice_ml.Model(model=model, backend="sklearn")
     explainer = dice_ml.Dice(dice_data, dice_model)
     cf = explainer.generate_counterfactuals(

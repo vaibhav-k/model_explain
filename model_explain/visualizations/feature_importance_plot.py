@@ -1,6 +1,17 @@
+# model_explain/visualizations/feature_importance_plot.py
+
 """
 This module provides a function to visualize feature importance using bar plots.
 It uses Matplotlib and Seaborn for plotting.
+
+Features:
+- plot_feature_importance: Plots feature importance as a horizontal bar plot.
+
+Author:
+    Vaibhav Kulshrestha
+
+Date:
+    2025-10-15
 """
 
 # Import necessary libraries

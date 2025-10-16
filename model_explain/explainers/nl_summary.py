@@ -1,6 +1,17 @@
+# model_explain/explainers/nl_summary.py
+
 """
 This module provides a function to generate a natural language summary
 explaining the prediction of a machine learning model based on SHAP values.
+
+Features:
+- Generates human-readable explanations for model predictions.
+
+Author:
+    Vaibhav Kulshrestha
+
+Date:
+    2025-10-15
 """
 
 # Import necessary libraries

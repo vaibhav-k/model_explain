@@ -1,5 +1,13 @@
+# model_explain/explainers/summary.py
+
 """
-Module for generating textual summaries explaining model predictions.
+Module for generating textual summaries of model explanations.
+
+Author:
+    Vaibhav Kulshrestha
+
+Date:
+    2025-10-15
 """
 
 # Import necessary libraries

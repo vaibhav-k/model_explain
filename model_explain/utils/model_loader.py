@@ -1,5 +1,16 @@
+# model_explain/utils/model_loader.py
+
 """
 Utility function to load a machine learning model from a specified file path.
+
+Features:
+- Uses joblib for loading models.
+
+Author:
+    Vaibhav Kulshrestha
+
+Date:
+    2025-10-15
 """
 
 # Import necessary libraries

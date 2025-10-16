@@ -1,5 +1,16 @@
+# model_explain/explainers/shap_explainer.py
+
 """
-SHAP Explainer Module
+This module provides a SHAP explainer function to interpret machine learning models.
+
+Features:
+- Computes SHAP values for a given model and dataset.
+
+Author:
+    Vaibhav Kulshrestha
+
+Date:
+    2025-10-15
 """
 
 # Import necessary libraries

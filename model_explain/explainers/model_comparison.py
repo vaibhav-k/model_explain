@@ -1,5 +1,17 @@
+# model_explain/explainers/model_comparison.py
+
 """
 Module for comparing different models using SHAP values.
+
+Features:
+1. Model Comparison: Compares multiple models based on their SHAP values to identify
+   the most important features influencing their predictions.
+
+Author:
+    Vaibhav Kulshrestha
+
+Date:
+    2025-10-15
 """
 
 # Import necessary libraries

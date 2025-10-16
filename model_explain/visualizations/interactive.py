@@ -1,5 +1,16 @@
+# model_explain/visualizations/interactive.py
+
 """
 Interactive visualizations for model explanations using Plotly.
+
+Features:
+- Plot feature importance using interactive bar charts.
+
+Author:
+    Vaibhav Kulshrestha
+
+Date:
+    2025-10-15
 """
 
 # Import necessary libraries
