@@ -8,30 +8,21 @@
 
 ---
 
-`model_explain` is a Python package designed for providing **interpretability** and **explainability** for machine learning models. It supports a variety of popular techniques for explaining individual model predictions, making it easier to understand how black-box models (such as neural networks, decision trees, and ensemble models) make decisions.
+`model_explain` is a Python package for **interpreting** and **explaining** machine learning models. It provides a unified interface for popular explanation techniques, including **LIME**, **SHAP**, and **Grad-CAM** and supports a wide range of models and data types.
 
-The library is model-agnostic, meaning it can be used with any machine learning model, regardless of the underlying algorithm. With built-in support for **LIME** and **SHAP**, it offers powerful tools to interpret and explain the contributions of individual features in model predictions.
+## Key Features
 
-## Features
-
-- **Model-Agnostic Explanation Techniques**: 
-  - Supports popular model-agnostic explanation techniques like **LIME** (Local Interpretable Model-agnostic Explanations) and **SHAP** (SHapley Additive exPlanations).
-  
-- **Compatibility with Multiple ML Frameworks**:
-  - Works with a wide range of machine learning models from libraries such as `scikit-learn`, `XGBoost`, `LightGBM`, and more.
-  
-- **Visualizations**:
-  - Provides easy-to-use visualizations to display feature importance, which helps in understanding how model predictions are affected by various input features.
-  
-- **Interpretability for Individual Predictions**:
-  - Offers tools to explain specific predictions, making it suitable for tasks that require model transparency (e.g., finance, healthcare).
-
-- **Simple Integration**:
-  - Designed to integrate seamlessly with your existing machine learning pipelines.
+- **Unified API** for LIME and SHAP explanations
+- **Model-agnostic**: works with any model supporting `predict` or `predict_proba`
+- **Tabular, image, and text data** support
+- **Visualizations** for both local and global explanations
+- **Easy integration** with scikit-learn, XGBoost, LightGBM, and more
+- **Feature importance** extraction and plotting
+- **Interpretability for individual predictions** and datasets
 
 ## Installation
 
-You can install `model_explain` via pip directly from GitHub:
+Install from PyPI:
 
 ```bash
 pip install model-explain
@@ -45,108 +36,79 @@ cd model_explain
 pip install .
 ```
 
-## Usage
-### 1. LIME (Local Interpretable Model-agnostic Explanations)
+## Quick Start
 
-LIME explains individual predictions by approximating the model locally using interpretable models like linear regression or decision trees. It creates a local surrogate model around the prediction and uses it to explain how the model reached its decision.
+### Tabular Data Example (LIME)
 
 ```python
-from model_explain import lime
+from model_explain.explainers.lime_explainer import lime_explainer
 
-explainer = lime.LimeTabularExplainer(
-    training_data=X_train.values,
-    feature_names=X_train.columns,
-    class_names=class_names,
-    mode="classification",
-)
+# model: trained scikit-learn model
+# X_test: pandas DataFrame of test features
 
-explanation = explainer.explain_instance(X_test.iloc[0], model.predict_proba)
+explanation = lime_explainer(model, X_test, instance_index=0)
 explanation.show_in_notebook()
 ```
 
-### 2. SHAP (SHapley Additive exPlanations)
-
-SHAP uses game theory to calculate the contribution of each feature to a given prediction. It provides both local and global interpretability by calculating feature importance for individual predictions or across an entire dataset.
+### Tabular Data Example (SHAP)
 
 ```python
 import shap
+from model_explain.explainers.shap_explainer import shap_explainer
 
-# Initialize SHAP explainer
-explainer = shap.Explainer(model)
+# model: trained machine learning model
+# X_test: pandas DataFrame of test features
 
-# Get SHAP values for a set of predictions
-shap_values = explainer(X_test)
-
-# Visualize the SHAP values
+shap_values = shap_explainer(model, X_test)
 shap.summary_plot(shap_values, X_test)
+
 ```
 
-### 3. Model Interpretation
-
-You can use model_explain to interpret the feature importance of any machine learning model.
+### Image Data Example
 
 ```python
-from model_explain import feature_importance
+from model_explain.explainers.grad_cam import GradCAM
+import matplotlib.pyplot as plt
 
-# Get feature importance from a trained model
-importance = feature_importance(model, X_train)
+# model: your trained CNN model (e.g., from torchvision)
+# image: a preprocessed image tensor of shape [1, C, H, W]
+# predicted_class: integer index of the predicted class
 
-# Visualize feature importance
-importance.plot()
+explainer = GradCAM(model, target_layer_name="layer4")  # specify the last conv layer
+heatmap = explainer(image, target_idx=predicted_class)
+
+plt.imshow(heatmap, cmap="jet", alpha=0.5)
+plt.title("Grad-CAM Heatmap")
+plt.axis("off")
+plt.show()
 ```
 
 ## Supported Models
-- **scikit-learn** models (e.g., LogisticRegression, RandomForestClassifier, SVM)
-- **XGBoost** models (xgb.XGBClassifier, xgb.XGBRegressor)
-- **LightGBM** models (lgb.LGBMClassifier, lgb.LGBMRegressor)
-- Other models compatible with scikit-learn interfaces.
 
-## Key Concepts
+- Scikit-learn models
+- XGBoost
+- LightGBM
+- PyTorch models
+- Any model with `predict` or `predict_proba` methods
 
-### LIME
+## Visualizations
 
-LIME is an explanation technique that focuses on explaining individual predictions rather than global model behavior. It works by perturbing the input data and training a simple, interpretable model on the perturbed data to approximate the decision boundary of the complex model locally.
-
-### SHAP
-
-SHAP values are based on cooperative game theory and attribute the prediction to features by computing the average contribution of each feature to the prediction across all possible feature subsets.
-
-### Visualizations
-
-Both LIME and SHAP provide built-in visualizations for explaining models:
-
-SHAP Summary Plot: A global view of feature importance across the dataset.
-
-LIME Explanation Plot: A local view of how features influenced a specific prediction.
-
-Example usage for visualizing SHAP values:
-
-```python
-import shap
-shap.initjs()
-shap.summary_plot(shap_values, X_test)
-```
+- **SHAP summary plot**: global feature importance (use **plot_feature_importance** for custom bar plots)
+- **LIME explanation plot**: local feature contributions (use **plot_feature_importance** for instance-level contributions)
+- **Image region importance (Grad-CAM heatmap)**: highlights spatial regions in images that most influence the model's prediction
 
 ## Use Cases
 
-- **Model Debugging**: Identify features or model behaviors that might be causing bias or overfitting.
-- **Feature Importance**: Determine which features are contributing most to model predictions.
-- **Improving Trust in Models**: Make machine learning models more transparent, especially in regulated industries like finance or healthcare.
-- *Understanding Black-box Models*: Get insights into deep learning models, ensemble methods, and other complex algorithms.
+- Debugging and validating ML models
+- Regulatory compliance and transparency
+- Feature selection and engineering
+- Enhancing trust in AI systems
+- Explaining model predictions to stakeholders
 
 ## Contributing
 
-Contributions to `model_explain` are welcome! Feel free to fork the repository and submit a pull request.
-
-1. Fork the repository
-2. Create a new branch (`git checkout -b feature-name`)
-3. Make your changes
-4. Commit your changes (`git commit -am 'Add feature'`)
-5. Push to the branch (`git push origin feature-name`)
-6. Open a pull request
-
-Please read `CONTRIBUTING.md` for more details.
+Contributions are welcome! Please read `CONTRIBUTING.md` for details on how to contribute.
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License - see the `LICENSE` file for details.

@@ -5,7 +5,7 @@ Author:
     Vaibhav Kulshrestha
 
 Date:
-    2025-10-15
+    2025-10-18
 """
 
 # Import necessary modules
@@ -13,7 +13,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="model_explain",
-    version="0.2.0",
+    version="0.3.0",
     packages=find_packages(),
     install_requires=[
         "plotly",
